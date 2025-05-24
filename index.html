@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สุขสันต์วันครบรอบ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ใช้ฟอนต์ Satisfy เพื่อความน่ารัก -->
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Satisfy', cursive;
+      background: linear-gradient(to bottom, #ffe0f0, #cdeeff);
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      padding-bottom: 70px; /*เว้นที่สำหรับ menubar fixed ด้านล่าง*/
+    }
+    .typewriter-text {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+      min-height: 100px;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #333;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    /* ลูกเล่นหัวใจลอยขึ้น */
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 24px;
+      color: #ff4d4d;
+      animation: floatHeart 5s linear infinite;
+    }
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+    /* Navigation buttons ด้านล่าง (ใช้ในทุกหน้า) */
+    .nav-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      padding: 10px 0;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .nav-button {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      background-color: #ffe0f0;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .nav-button:hover {
+      background-color: #fdd7e2;
+    }
+    /* Responsive: ทำให้ข้อความและปุ่มปรับขนาดตามหน้าจอมือถือ */
+    @media(max-width: 480px) {
+      .typewriter-text { font-size: 1.5rem; }
+      .button, .nav-button { padding: 8px 12px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="typewriter" class="typewriter-text"></div>
+    <a href="story.html" class="button">เรื่องราวของเรา</a>
+  </div>
+  
+  <!-- Navigation Buttons -->
+  <nav class="nav-container">
+    <!-- ก่อนหน้าใน index.html จะชี้กลับไปหน้าสุดท้ายเพื่อให้วนลูป -->
+    <a class="nav-button" href="gift.html">&larr; ก่อนหน้า</a>
+    <a class="nav-button" href="story.html">ถัดไป &rarr;</a>
+  </nav>
+  
+  <script>
+    // Typewriter effect
+    const textArray = [
+      "สุขสันต์วันครบรอบ 💖 พี × นิด\n",
+      "ขอบคุณที่อยู่ด้วยกันทุกวันเลยนะ"
+    ];
+    const typewriterElement = document.getElementById('typewriter');
+    let currentLine = 0, currentChar = 0;
+    function type() {
+      if(currentLine < textArray.length) {
+        if(currentChar < textArray[currentLine].length) {
+          typewriterElement.textContent += textArray[currentLine].charAt(currentChar);
+          currentChar++;
+          setTimeout(type, 100);
+        } else {
+          typewriterElement.textContent += "\n";
+          currentLine++;
+          currentChar = 0;
+          setTimeout(type, 500);
+        }
+      }
+    }
+    type();
+
+    // สร้างหัวใจลอยขึ้นเพื่อความน่ารัก
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random()*2) + 's';
+      heart.textContent = '💖';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 800);
+  </script>
+</body>
+</html>

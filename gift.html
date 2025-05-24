@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>กล่องของขวัญ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ใช้ฟอนต์ Satisfy เพื่อความน่ารัก -->
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, #ffe0f0, #cdeeff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Satisfy', cursive;
+      box-sizing: border-box;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    .gift-box {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      background: #fff;
+      border: 2px solid #cdeeff;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.5s ease;
+    }
+    .gift-box:hover {
+      transform: scale(1.05);
+    }
+    /* เปลี่ยนจากการพลิกกลับเป็นเพียงแสดงข้อความ fade-in */
+    .gift-message {
+      font-size: 1.2rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .gift-box.open .gift-message {
+      opacity: 1;
+    }
+    /* ลูกเล่นหัวใจลอย */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      color: #ff4d4d;
+      animation: floatHeart 4s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-80px) scale(1.5);
+        opacity: 0;
+      }
+    }
+    /* Navigation Bar */
+    .nav-container {
+      width: 100%;
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: rgba(255,255,255,0.7);
+      padding: 10px 0;
+    }
+    .nav-button {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      background-color: #ffe0f0;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .nav-button:hover {
+      background-color: #fdd7e2;
+    }
+    @media(max-width: 480px) {
+      .gift-box {
+        width: 120px;
+        height: 120px;
+      }
+      .gift-message {
+        font-size: 1rem;
+      }
+      .nav-button { padding: 6px 10px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="gift-box" id="giftBox">
+    <div class="gift-message" id="giftMessage">
+      พีรักนิดที่สุดในจักรวาลนี้เลย 💕
+    </div>
+  </div>
+  
+  <!-- Audio สำหรับเสียงน่ารัก (ตรวจสอบให้แน่ใจว่าไฟล์ audio/love.mp3 มีอยู่) -->
+  <audio id="giftAudio" src="audio/love.mp3"></audio>
+  
+  <!-- Navigation Buttons -->
+  <nav class="nav-container">
+    <a class="nav-button" href="letter.html">&larr; ก่อนหน้า</a>
+    <!--<a class="nav-button" href="index.html">ถัดไป &rarr;</a>-->
+  </nav>
+  
+  <script>
+    const giftBox = document.getElementById('giftBox');
+    const giftMessage = document.getElementById('giftMessage');
+    const giftAudio = document.getElementById('giftAudio');
+    
+    giftBox.addEventListener('click', () => {
+      // Toggle class open เพื่อให้ข้อความปรากฏ
+      giftBox.classList.toggle('open');
+      // ถ้าเปิดกล่อง ให้เล่นเสียงและสร้างหัวใจลอย
+      if(giftBox.classList.contains('open')) {
+        giftAudio.play();
+        createHearts();
+      }
+    });
+    
+    function createHearts() {
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        // กำหนดตำแหน่งสุ่มภายในกล่อง
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.top = Math.random() * 100 + "%";
+        heart.textContent = "💖";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>

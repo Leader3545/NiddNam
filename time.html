@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เวลาที่เราคบกัน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ใช้ฟอนต์สำหรับนาฬิกา (เลือกใช้ฟอนต์ที่อ่านง่าย) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, #ffe0f0, #cdeeff);
+      font-family: 'Roboto Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding-bottom: 80px; /* เว้นที่สำหรับ navigation bar ด้านล่าง */
+    }
+    .label {
+      font-size: 1.2rem;
+      color: #333;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .clock-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .clock-box {
+      background: rgba(255,255,255,0.8);
+      padding: 15px 20px;
+      border-radius: 8px;
+      min-width: 80px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .time-number {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .time-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    /* Navigation Bar */
+    .nav-container {
+      width: 100%;
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: rgba(255,255,255,0.7);
+      padding: 10px 0;
+    }
+    .nav-button {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      background-color: #ffe0f0;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .nav-button:hover {
+      background-color: #fdd7e2;
+    }
+    @media(max-width: 480px) {
+      .time-number {
+        font-size: 1.5rem;
+      }
+      .clock-box {
+        min-width: 70px;
+        padding: 10px 15px;
+      }
+      .nav-button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="clock-box">
+      <div class="time-number" id="days">00</div>
+      <div class="time-label">วัน</div>
+    </div>
+    <div class="clock-box">
+      <div class="time-number" id="hours">00</div>
+      <div class="time-label">ชั่วโมง</div>
+    </div>
+    <div class="clock-box">
+      <div class="time-number" id="minutes">00</div>
+      <div class="time-label">นาที</div>
+    </div>
+    <div class="clock-box">
+      <div class="time-number" id="seconds">00</div>
+      <div class="time-label">วินาที</div>
+    </div>
+  </div>
+  <div class="label">
+    <p>เวลาที่เราคบกันตั้งแต่วันที่ 25 มีนาคม 2025</p>
+  </div>
+  
+  <!-- Navigation Buttons -->
+  <nav class="nav-container">
+    <a class="nav-button" href="story.html">&larr; ก่อนหน้า</a>
+    <a class="nav-button" href="letter.html">ถัดไป &rarr;</a>
+  </nav>
+  
+  <script>
+    // วันที่เริ่มคบกัน
+    const startDate = new Date("2025-03-25T00:00:00");
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate; // ความต่างเป็นมิลลิวินาที
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      
+      document.getElementById("days").textContent = days < 10 ? "0" + days : days;
+      document.getElementById("hours").textContent = hours < 10 ? "0" + hours : hours;
+      document.getElementById("minutes").textContent = minutes < 10 ? "0" + minutes : minutes;
+      document.getElementById("seconds").textContent = seconds < 10 ? "0" + seconds : seconds;
+    }
+    
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+</body>
+</html>
